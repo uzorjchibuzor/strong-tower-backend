@@ -13,10 +13,13 @@ describe 'POST /new_appointment' do
     }
 
     returned_object = JSON.parse(response.body)
-
+    
     expect(response.status).to eq(200)
     expect(returned_object['doctor_id']).to eq(doctor.id)
     expect(returned_object['user_id']).to eq(user.id)
+    expect(Appointment.count).to eq(1)
+    expect(Appointment.last.date).to eq(appt_time)
+
   end
 
   scenario 'invalid appointment attributes' do
